@@ -1,4 +1,4 @@
-export * from "./LoginPage.css";
+export * from "./LoginPage.css?inline"
 
 export const LoginPage = () => {
   return (
