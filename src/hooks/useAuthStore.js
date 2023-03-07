@@ -46,11 +46,28 @@ export const useAuthStore = () => {
     }
   };
 
+  const checkAuthToken = async () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) return dispatch(onLogout());
+
+    try {
+      const { data } = await calendarApi.get("/auth/refresh");
+      localStorage.setItem("token", data.msg.token);
+      localStorage.setItem("token-init-date", new Date().getTime());
+      dispatch(onLogin({ name: data.msg.name, uid: data.msg.uid }));
+    } catch (error) {
+        localStorage.clear();
+        dispatch(onLogout());
+    }
+  };
+
   return {
     status,
     user,
     errorMessage,
     startLogin,
     startRegister,
+    checkAuthToken
   };
 };
