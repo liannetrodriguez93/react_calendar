@@ -17,7 +17,7 @@ const registerFormField = {
 };
 
 export const LoginPage = () => {
-  const { startLogin, errorMessage } = useAuthStore();
+  const { startLogin, startRegister, errorMessage } = useAuthStore();
 
   const {
     loginEmail,
@@ -34,16 +34,19 @@ export const LoginPage = () => {
 
   const loginSubmit = (event) => {
     event.preventDefault();
+    if (registerPassword !== registerPassword2) {
+      Swal.fire("Error on register", "Password are not the same", "error");
+      return;
+    }
     startLogin({ email: loginEmail, password: loginPassword });
   };
 
   const registerSubmit = (event) => {
     event.preventDefault();
-    startLogin({
-      registerName,
-      registerEmail,
-      registerPassword,
-      registerPassword2,
+    startRegister({
+      name: registerName,
+      email: registerEmail,
+      password: registerPassword,
     });
   };
 
