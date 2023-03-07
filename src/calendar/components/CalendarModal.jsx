@@ -47,7 +47,6 @@ export const CalendarModal = () => {
   }, [formValues.title, formSubmitted]);
 
   useEffect(() => {
-    console.log(activeEvent)
     if (activeEvent !== null) {
       setFormValues({...activeEvent})
     }
@@ -79,7 +78,6 @@ export const CalendarModal = () => {
     const difference = differenceInSeconds(formValues.end, formValues.start);
 
     if (isNaN(difference) || difference <= 0) {
-      console.log("error en fecha");
       Swal.fire('Fechas Incorrectas', 'Revisar las fechas ingresadas', 'error')
       return;
     }
